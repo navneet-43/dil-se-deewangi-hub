@@ -1,4 +1,5 @@
 import { Clock, Smartphone, Flame, Calendar } from "lucide-react";
+import heroImg from "@/assets/dsdt-hero.jpg";
 
 const features = [
   { icon: Calendar, title: "Daily Drops", text: "A brand-new episode every single day at 12 PM sharp." },
@@ -10,17 +11,33 @@ const features = [
 const About = () => (
   <section id="about" className="relative py-24 px-6">
     <div className="mx-auto max-w-7xl">
-      <div className="mb-16 text-center">
-        <p className="mb-3 text-xs uppercase tracking-[0.3em] text-primary">The Show</p>
-        <h2 className="mb-4 text-4xl font-bold md:text-5xl">
-          What is <span className="text-gradient-gold">Dil Se Deewangi Tak</span>?
-        </h2>
-        <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-          A blockbuster Hindi micro-drama on Alright TV — where a perfect love story collides with vengeance, legacy and bullets. Watch the obsession unfold, one episode a day.
-        </p>
+      <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.4fr]">
+        {/* Low-key poster */}
+        <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
+          <div className="absolute -inset-3 rounded-2xl bg-gradient-fire opacity-15 blur-2xl" />
+          <div className="relative overflow-hidden rounded-2xl border border-primary/20 shadow-card-cinema">
+            <img
+              src={heroImg}
+              alt="Dil Se Deewangi Tak — official poster featuring Kabir, Sia and Ananya"
+              className="w-full h-auto object-contain"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        {/* Copy */}
+        <div>
+          <p className="mb-3 text-xs uppercase tracking-[0.3em] text-primary">The Show</p>
+          <h2 className="mb-4 text-4xl font-bold md:text-5xl">
+            What is <span className="text-gradient-gold">Dil Se Deewangi Tak</span>?
+          </h2>
+          <p className="max-w-2xl text-lg text-muted-foreground">
+            A blockbuster Hindi micro-drama on Alright TV — where a perfect love story collides with vengeance, legacy and bullets. Watch the obsession unfold, one episode a day.
+          </p>
+        </div>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {features.map((f) => (
           <div
             key={f.title}
