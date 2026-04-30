@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
+import heroImg from "@/assets/dsdt-hero.jpg";
 
 const PLAY_URL = "https://alrighttv.go.link/bnI1y";
 
@@ -23,10 +24,20 @@ const Hero = () => {
 
   return (
     <section className="relative h-[100svh] w-full overflow-hidden grain flex flex-col">
-      {/* Ambient background glow */}
+      {/* Cinematic backdrop — poster art, blurred & dimmed for depth */}
       <div className="absolute inset-0 bg-background" />
+      <img
+        src={heroImg}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover scale-110 opacity-40"
+        style={{ filter: "blur(14px)" }}
+      />
+      {/* Vignettes to keep text & player crisp on top of the backdrop */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-background/70" />
       <div
-        className="absolute inset-0 opacity-60"
+        className="absolute inset-0 opacity-50"
         style={{ background: "var(--gradient-radial-glow)" }}
       />
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
