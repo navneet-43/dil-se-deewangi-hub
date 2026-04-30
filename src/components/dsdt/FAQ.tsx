@@ -6,8 +6,8 @@ const faqs = [
     a: "Dil Se Deewangi Tak is available exclusively on the Alright TV app, free to download on Google Play and the App Store.",
   },
   {
-    q: "Where to watch Dil Se Deewangi Tak for free?",
-    a: "Every episode of Dil Se Deewangi Tak streams 100% free on Alright TV. No subscription, no paywall — just install the app and start watching.",
+    q: "How can I start watching Dil Se Deewangi Tak?",
+    a: "Download the Alright TV app from Google Play or the App Store. You can watch the official promo and the first few episodes free — subscribe inside the app to unlock the full season.",
   },
   {
     q: "When do new episodes of Dil Se Deewangi Tak release?",
