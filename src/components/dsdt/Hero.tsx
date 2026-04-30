@@ -70,9 +70,9 @@ const Hero = () => {
           <a href="#where" className="hover:text-primary transition-colors">Where to Watch</a>
           <a href="#faq" className="hover:text-primary transition-colors">FAQ</a>
         </div>
-        <Button asChild variant="hero" size="sm">
+        <Button asChild variant="hero" size="sm" className="text-primary-foreground font-bold">
           <a href={PLAY_URL} target="_blank" rel="noopener">
-            <Download /> Get App
+            <Download className="text-primary-foreground" /> Get the App
           </a>
         </Button>
       </nav>
@@ -142,7 +142,7 @@ const Hero = () => {
             </a>
           </Button>
           <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-            New episode daily · 12 PM · Only on Alright TV
+            New episodes everyday · 12 PM · Only on Alright TV
           </p>
         </div>
       </div>
