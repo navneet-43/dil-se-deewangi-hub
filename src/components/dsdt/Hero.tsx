@@ -22,7 +22,7 @@ const Hero = () => {
   const embedUrl = buildEmbedUrl();
 
   return (
-    <section className="relative min-h-[100svh] w-full overflow-hidden grain">
+    <section className="relative h-[100svh] w-full overflow-hidden grain flex flex-col">
       {/* Ambient background glow */}
       <div className="absolute inset-0 bg-background" />
       <div
@@ -45,7 +45,7 @@ const Hero = () => {
       </div>
 
       {/* Top nav */}
-      <nav className="relative z-20 mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
+      <nav className="relative z-20 mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4 shrink-0">
         <a
           href="/"
           className="font-display text-2xl font-extrabold tracking-tight text-gradient-gold"
@@ -66,30 +66,31 @@ const Hero = () => {
         </Button>
       </nav>
 
-      {/* Hero content */}
-      <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center px-6 pb-20 pt-4 text-center">
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-background/60 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-primary backdrop-blur">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
-          Now Streaming · Alright TV
-        </div>
-
+      {/* Hero content — fills remaining viewport, no scroll */}
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 min-h-0 flex-col items-center px-4 pb-4 text-center">
         <h1 className="sr-only">Dil Se Deewangi Tak — Watch on Alright TV</h1>
 
+        {/* Top text — compact */}
         <p
-          className="mb-2 text-3xl font-bold text-gradient-gold md:text-4xl"
+          className="text-xl font-bold text-gradient-gold md:text-2xl"
           style={{ fontFamily: "Cinzel, serif" }}
         >
           Dil Se Deewangi Tak
         </p>
-        <p className="mb-8 text-base text-muted-foreground md:text-lg">
-          Naye season har dopahar <span className="text-primary font-semibold">12 baje</span>.
+        <p className="mb-2 text-xs text-muted-foreground md:text-sm">
+          Naye season har dopahar <span className="text-primary font-semibold">12 baje</span>
         </p>
 
-        {/* Vertical 9:16 player — phone-shaped frame */}
-        <div className="relative mx-auto w-full max-w-[340px] md:max-w-[380px]">
-          {/* Glow halo */}
-          <div className="absolute -inset-4 rounded-[2.5rem] bg-gradient-gold opacity-30 blur-2xl animate-glow" />
-          <div className="relative aspect-[9/16] w-full overflow-hidden rounded-[2rem] border-2 border-primary/40 bg-black shadow-gold">
+        {/* Vertical 9:16 player — auto-sized to fit available height while keeping 9:16 ratio.
+            height = 100% of remaining vertical space, width = height * 9/16. */}
+        <div className="relative flex-1 min-h-0 w-full flex items-center justify-center py-2">
+          <div
+            className="relative h-full"
+            style={{ aspectRatio: "9 / 16", maxWidth: "100%" }}
+          >
+            {/* Glow halo */}
+            <div className="absolute -inset-3 rounded-[2rem] bg-gradient-gold opacity-25 blur-2xl animate-glow" />
+            <div className="relative h-full w-full overflow-hidden rounded-[1.5rem] border-2 border-primary/40 bg-black shadow-gold">
             {embedUrl ? (
               <iframe
                 src={embedUrl}
@@ -113,22 +114,23 @@ const Hero = () => {
                 </p>
               </div>
             )}
+            </div>
           </div>
         </div>
 
         {/* Bold CTA below the player */}
-        <div className="mt-10 flex flex-col items-center gap-4">
+        <div className="mt-3 flex flex-col items-center gap-2 shrink-0">
           <Button
             asChild
             variant="hero"
-            size="xl"
-            className="text-lg shadow-gold animate-glow px-12"
+            size="lg"
+            className="text-base shadow-gold animate-glow px-10"
           >
             <a href={PLAY_URL} target="_blank" rel="noopener">
               <Download className="h-5 w-5" /> Download App to Watch Full
             </a>
           </Button>
-          <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+          <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
             New episode daily · 12 PM · Only on Alright TV
           </p>
         </div>
