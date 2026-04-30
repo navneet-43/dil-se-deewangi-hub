@@ -1,23 +1,60 @@
 import { Button } from "@/components/ui/button";
-import { Play, Download } from "lucide-react";
+import { Download, Play } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import heroImg from "@/assets/dsdt-hero.jpg";
 
 const PLAY_URL = "https://alrighttv.go.link/bnI1y";
+// TODO: replace with the final promo video URL (mp4) once provided.
+const PROMO_VIDEO_URL = "/promo.mp4";
 
 const Hero = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [muted, setMuted] = useState(true);
+  const [hasVideo, setHasVideo] = useState(true);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    const tryPlay = async () => {
+      try {
+        await v.play();
+      } catch {
+        /* autoplay blocked — poster remains visible */
+      }
+    };
+    tryPlay();
+  }, []);
+
   return (
     <section className="relative min-h-[100svh] w-full overflow-hidden grain">
-      {/* Background poster */}
+      {/* Background video / poster */}
       <div className="absolute inset-0">
-        <img
-          src={heroImg}
-          alt="Dil Se Deewangi Tak — Kabir, Sia and Ananya in an explosive action drama"
-          className="h-full w-full object-cover object-center scale-105"
-          loading="eager"
-          fetchPriority="high"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/10 to-transparent" />
+        {hasVideo ? (
+          <video
+            ref={videoRef}
+            className="h-full w-full object-cover object-center"
+            poster={heroImg}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            onError={() => setHasVideo(false)}
+          >
+            <source src={PROMO_VIDEO_URL} type="video/mp4" />
+          </video>
+        ) : (
+          <img
+            src={heroImg}
+            alt="Dil Se Deewangi Tak — Kabir, Sia and Ananya in an explosive action drama"
+            className="h-full w-full object-cover object-center scale-105"
+            loading="eager"
+            fetchPriority="high"
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-background/40" />
       </div>
 
       {/* Floating embers */}
@@ -38,48 +75,64 @@ const Hero = () => {
 
       {/* Top nav */}
       <nav className="relative z-20 mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
-        <a href="/" className="font-display text-2xl font-extrabold tracking-tight text-gradient-gold" style={{ fontFamily: "Cinzel, serif" }}>
+        <a
+          href="/"
+          className="font-display text-2xl font-extrabold tracking-tight text-gradient-gold"
+          style={{ fontFamily: "Cinzel, serif" }}
+        >
           ALRIGHT<span className="text-primary">!</span>
         </a>
         <div className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
           <a href="#about" className="hover:text-primary transition-colors">About</a>
-          <a href="#promo" className="hover:text-primary transition-colors">Promo</a>
           <a href="#story" className="hover:text-primary transition-colors">Story</a>
+          <a href="#where" className="hover:text-primary transition-colors">Where to Watch</a>
           <a href="#faq" className="hover:text-primary transition-colors">FAQ</a>
         </div>
         <Button asChild variant="hero" size="sm">
-          <a href="#promo">Watch Promo</a>
+          <a href={PLAY_URL} target="_blank" rel="noopener">
+            <Download /> Get App
+          </a>
         </Button>
       </nav>
 
-      {/* Hero copy */}
-      <div className="relative z-10 mx-auto flex min-h-[calc(100svh-96px)] max-w-7xl items-center px-6 pb-20">
-        <div className="max-w-2xl animate-fade-up">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-background/60 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-primary backdrop-blur">
+      {/* Hero copy — bottom anchored so video stays the star */}
+      <div className="relative z-10 mx-auto flex min-h-[calc(100svh-96px)] max-w-7xl flex-col justify-end px-6 pb-16">
+        <div className="max-w-3xl animate-fade-up">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-background/60 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-primary backdrop-blur">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
             Now Streaming · Alright TV
           </div>
 
           <h1 className="sr-only">Dil Se Deewangi Tak — Watch on Alright TV</h1>
 
-          <p className="mb-2 text-lg font-semibold text-primary/90 md:text-xl">
+          <p className="mb-3 text-2xl font-semibold text-primary md:text-3xl" style={{ fontFamily: "Cinzel, serif" }}>
             Naye season har dopahar 12 baje.
           </p>
-          <p className="mb-8 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            A new vertical episode drops <span className="text-foreground font-medium">every day at 12 PM</span>. Love, vengeance, fire & loyalty — 22 minutes of cinematic drama, only on Alright TV.
+          <p className="mb-8 max-w-xl text-base leading-relaxed text-foreground/80 md:text-lg">
+            A new vertical episode drops <span className="text-foreground font-semibold">every day at 12 PM</span>.
+            Download the app to watch the full season.
           </p>
 
           <div className="flex flex-wrap items-center gap-4">
-            <Button asChild variant="hero" size="xl">
-              <a href="#promo">
-                <Play className="fill-current" /> Watch Promo
-              </a>
-            </Button>
-            <Button asChild variant="outlineGold" size="xl">
+            <Button asChild variant="hero" size="xl" className="text-lg shadow-gold animate-glow">
               <a href={PLAY_URL} target="_blank" rel="noopener">
-                <Download /> Get the App
+                <Download className="h-5 w-5" /> Download App to Watch Full
               </a>
             </Button>
+            {hasVideo && (
+              <Button
+                variant="outlineGold"
+                size="xl"
+                onClick={() => {
+                  const v = videoRef.current;
+                  if (!v) return;
+                  v.muted = !v.muted;
+                  setMuted(v.muted);
+                }}
+              >
+                <Play className="fill-current" /> {muted ? "Unmute Promo" : "Mute Promo"}
+              </Button>
+            )}
           </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-muted-foreground">
