@@ -1,63 +1,34 @@
 import { Button } from "@/components/ui/button";
-import { Download, Play } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import heroImg from "@/assets/dsdt-hero.jpg";
+import { Download } from "lucide-react";
 
 const PLAY_URL = "https://alrighttv.go.link/bnI1y";
-// TODO: replace with the final promo video URL (mp4) once provided.
-const PROMO_VIDEO_URL = "/promo.mp4";
+
+// TODO: paste the YouTube or Vimeo video ID here once provided.
+// YouTube: from https://youtu.be/XXXXXXXXXXX  →  "XXXXXXXXXXX"
+// Vimeo:   from https://vimeo.com/123456789   →  "123456789"
+const VIDEO_PROVIDER: "youtube" | "vimeo" = "youtube";
+const VIDEO_ID = ""; // <-- leave empty to show placeholder
+
+const buildEmbedUrl = () => {
+  if (!VIDEO_ID) return "";
+  if (VIDEO_PROVIDER === "youtube") {
+    // mute=1 + playsinline=1 are required for autoplay on mobile
+    return `https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${VIDEO_ID}&controls=1&modestbranding=1&rel=0&playsinline=1`;
+  }
+  return `https://player.vimeo.com/video/${VIDEO_ID}?autoplay=1&muted=1&loop=1&background=0&playsinline=1`;
+};
 
 const Hero = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [muted, setMuted] = useState(true);
-  const [hasVideo, setHasVideo] = useState(true);
-
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.muted = true;
-    const tryPlay = async () => {
-      try {
-        await v.play();
-      } catch {
-        /* autoplay blocked — poster remains visible */
-      }
-    };
-    tryPlay();
-  }, []);
+  const embedUrl = buildEmbedUrl();
 
   return (
     <section className="relative min-h-[100svh] w-full overflow-hidden grain">
-      {/* Background video / poster */}
-      <div className="absolute inset-0">
-        {hasVideo ? (
-          <video
-            ref={videoRef}
-            className="h-full w-full object-cover object-center"
-            poster={heroImg}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            onError={() => setHasVideo(false)}
-          >
-            <source src={PROMO_VIDEO_URL} type="video/mp4" />
-          </video>
-        ) : (
-          <img
-            src={heroImg}
-            alt="Dil Se Deewangi Tak — Kabir, Sia and Ananya in an explosive action drama"
-            className="h-full w-full object-cover object-center scale-105"
-            loading="eager"
-            fetchPriority="high"
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/20" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-background/40" />
-      </div>
-
-      {/* Floating embers */}
+      {/* Ambient background glow */}
+      <div className="absolute inset-0 bg-background" />
+      <div
+        className="absolute inset-0 opacity-60"
+        style={{ background: "var(--gradient-radial-glow)" }}
+      />
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         {Array.from({ length: 14 }).map((_, i) => (
           <span
@@ -95,63 +66,75 @@ const Hero = () => {
         </Button>
       </nav>
 
-      {/* Hero copy — bottom anchored so video stays the star */}
-      <div className="relative z-10 mx-auto flex min-h-[calc(100svh-96px)] max-w-7xl flex-col justify-end px-6 pb-16">
-        <div className="max-w-3xl animate-fade-up">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-background/60 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-primary backdrop-blur">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
-            Now Streaming · Alright TV
-          </div>
+      {/* Hero content */}
+      <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center px-6 pb-20 pt-4 text-center">
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-background/60 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-primary backdrop-blur">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
+          Now Streaming · Alright TV
+        </div>
 
-          <h1 className="sr-only">Dil Se Deewangi Tak — Watch on Alright TV</h1>
+        <h1 className="sr-only">Dil Se Deewangi Tak — Watch on Alright TV</h1>
 
-          <p className="mb-3 text-2xl font-semibold text-primary md:text-3xl" style={{ fontFamily: "Cinzel, serif" }}>
-            Naye season har dopahar 12 baje.
-          </p>
-          <p className="mb-8 max-w-xl text-base leading-relaxed text-foreground/80 md:text-lg">
-            A new vertical episode drops <span className="text-foreground font-semibold">every day at 12 PM</span>.
-            Download the app to watch the full season.
-          </p>
+        <p
+          className="mb-2 text-3xl font-bold text-gradient-gold md:text-4xl"
+          style={{ fontFamily: "Cinzel, serif" }}
+        >
+          Dil Se Deewangi Tak
+        </p>
+        <p className="mb-8 text-base text-muted-foreground md:text-lg">
+          Naye season har dopahar <span className="text-primary font-semibold">12 baje</span>.
+        </p>
 
-          <div className="flex flex-wrap items-center gap-4">
-            <Button asChild variant="hero" size="xl" className="text-lg shadow-gold animate-glow">
-              <a href={PLAY_URL} target="_blank" rel="noopener">
-                <Download className="h-5 w-5" /> Download App to Watch Full
-              </a>
-            </Button>
-            {hasVideo && (
-              <Button
-                variant="outlineGold"
-                size="xl"
-                onClick={() => {
-                  const v = videoRef.current;
-                  if (!v) return;
-                  v.muted = !v.muted;
-                  setMuted(v.muted);
-                }}
-              >
-                <Play className="fill-current" /> {muted ? "Unmute Promo" : "Mute Promo"}
-              </Button>
+        {/* Vertical 9:16 player — phone-shaped frame */}
+        <div className="relative mx-auto w-full max-w-[340px] md:max-w-[380px]">
+          {/* Glow halo */}
+          <div className="absolute -inset-4 rounded-[2.5rem] bg-gradient-gold opacity-30 blur-2xl animate-glow" />
+          <div className="relative aspect-[9/16] w-full overflow-hidden rounded-[2rem] border-2 border-primary/40 bg-black shadow-gold">
+            {embedUrl ? (
+              <iframe
+                src={embedUrl}
+                title="Dil Se Deewangi Tak — Promo"
+                className="absolute inset-0 h-full w-full"
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowFullScreen
+                frameBorder={0}
+              />
+            ) : (
+              <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-card via-background to-card p-6 text-center">
+                <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-gradient-gold text-primary-foreground shadow-gold">
+                  <Download className="h-7 w-7" />
+                </div>
+                <p className="text-sm font-semibold text-foreground">
+                  Vertical 9:16 promo will play here
+                </p>
+                <p className="mt-2 text-xs text-muted-foreground">
+                  Paste the YouTube / Vimeo ID in <code className="text-primary">Hero.tsx</code> →{" "}
+                  <code className="text-primary">VIDEO_ID</code>
+                </p>
+              </div>
             )}
           </div>
+        </div>
 
-          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-muted-foreground">
-            <Stat label="Daily" value="12 PM" />
-            <Stat label="Episode" value="22 min" />
-            <Stat label="Format" value="Vertical" />
-            <Stat label="On" value="Alright TV" />
-          </div>
+        {/* Bold CTA below the player */}
+        <div className="mt-10 flex flex-col items-center gap-4">
+          <Button
+            asChild
+            variant="hero"
+            size="xl"
+            className="text-lg shadow-gold animate-glow px-12"
+          >
+            <a href={PLAY_URL} target="_blank" rel="noopener">
+              <Download className="h-5 w-5" /> Download App to Watch Full
+            </a>
+          </Button>
+          <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+            New episode daily · 12 PM · Only on Alright TV
+          </p>
         </div>
       </div>
     </section>
   );
 };
-
-const Stat = ({ label, value }: { label: string; value: string }) => (
-  <div className="flex items-baseline gap-2">
-    <span className="text-2xl font-bold text-gradient-gold">{value}</span>
-    <span className="uppercase tracking-widest text-xs">{label}</span>
-  </div>
-);
 
 export default Hero;
