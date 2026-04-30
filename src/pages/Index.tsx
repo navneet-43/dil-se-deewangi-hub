@@ -12,7 +12,6 @@ const Index = () => {
       <Hero />
       <div className="ember-divider" />
       <About />
-      <PromoVideo />
       <Story />
       <WhereToWatch />
       <FAQ />
