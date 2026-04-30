@@ -113,6 +113,7 @@ const Hero = () => {
                   <code className="text-primary">VIDEO_ID</code>
                 </p>
               </div>
+            )}
             </div>
           </div>
         </div>
