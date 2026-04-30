@@ -113,23 +113,23 @@ const Hero = () => {
                   <code className="text-primary">VIDEO_ID</code>
                 </p>
               </div>
-            )}
+            </div>
           </div>
         </div>
 
         {/* Bold CTA below the player */}
-        <div className="mt-10 flex flex-col items-center gap-4">
+        <div className="mt-3 flex flex-col items-center gap-2 shrink-0">
           <Button
             asChild
             variant="hero"
-            size="xl"
-            className="text-lg shadow-gold animate-glow px-12"
+            size="lg"
+            className="text-base shadow-gold animate-glow px-10"
           >
             <a href={PLAY_URL} target="_blank" rel="noopener">
               <Download className="h-5 w-5" /> Download App to Watch Full
             </a>
           </Button>
-          <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+          <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
             New episode daily · 12 PM · Only on Alright TV
           </p>
         </div>
