@@ -16,9 +16,8 @@ const Hero = () => {
           loading="eager"
           fetchPriority="high"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/30" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/40 to-transparent" />
-        <div className="absolute inset-0" style={{ background: "var(--gradient-radial-glow)" }} />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/10 to-transparent" />
       </div>
 
       {/* Floating embers */}
@@ -61,11 +60,7 @@ const Hero = () => {
             Now Streaming · Alright TV
           </div>
 
-          <h1 className="mb-4 text-5xl font-black leading-[0.95] sm:text-6xl md:text-7xl lg:text-8xl">
-            <span className="block text-gradient-fire drop-shadow-[0_4px_20px_hsl(20_95%_55%/0.4)]">DIL SE</span>
-            <span className="block text-gradient-gold">DEEWANGI</span>
-            <span className="block text-foreground">TAK</span>
-          </h1>
+          <h1 className="sr-only">Dil Se Deewangi Tak — Watch free on Alright TV</h1>
 
           <p className="mb-2 text-lg font-semibold text-primary/90 md:text-xl">
             Naye season har dopahar 12 baje.
