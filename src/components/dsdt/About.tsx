@@ -4,7 +4,7 @@ const features = [
   { icon: Calendar, title: "Daily Drops", text: "A brand-new episode every single day at 12 PM sharp." },
   { icon: Clock, title: "22-Min Seasons", text: "Bite-sized cinematic seasons designed to binge in a lunch break." },
   { icon: Smartphone, title: "Vertical First", text: "Shot for your phone. Full-screen, cinematic, swipe-ready." },
-  { icon: Flame, title: "100% Free", text: "Stream every episode free on the Alright TV app." },
+  { icon: Flame, title: "Promo + Free Preview", text: "Watch the promo and the first few episodes free on Alright TV." },
 ];
 
 const About = () => (

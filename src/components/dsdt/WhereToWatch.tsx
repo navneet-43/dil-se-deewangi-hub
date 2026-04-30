@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Play, Gift, Tv, Clock } from "lucide-react";
+import { Play, Sparkles, Tv, Clock } from "lucide-react";
 
 const PLAY_URL = "https://alrighttv.go.link/bnI1y";
 
@@ -12,7 +12,7 @@ const WhereToWatch = () => (
           Where to watch <span className="text-gradient-gold">Dil Se Deewangi Tak</span>?
         </h2>
         <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-          You can watch all episodes of Dil Se Deewangi Tak <span className="text-primary font-semibold">for free</span> exclusively on the Alright TV app.
+          Stream Dil Se Deewangi Tak exclusively on the Alright TV app. Watch the promo and the first few episodes free — subscribe to unlock the full season.
         </p>
       </div>
 
@@ -23,9 +23,9 @@ const WhereToWatch = () => (
           text="Dil Se Deewangi Tak streams exclusively on the Alright TV app — available on Google Play and the App Store."
         />
         <WatchCard
-          icon={Gift}
-          title="Where to watch DSDT for free?"
-          text="Every episode of Dil Se Deewangi Tak is 100% free on Alright TV. No subscription. No paywall. Just download & watch."
+          icon={Sparkles}
+          title="How much does it cost?"
+          text="The promo and the first few episodes are free on Alright TV. Subscribe inside the app to unlock the full season."
           highlight
         />
         <WatchCard
@@ -41,16 +41,21 @@ const WhereToWatch = () => (
         <div className="absolute inset-0" style={{ background: "radial-gradient(circle at 30% 30%, hsl(0 0% 0% / 0.3), transparent 70%)" }} />
         <div className="relative">
           <h3 className="mb-4 text-3xl font-black uppercase tracking-wider text-primary-foreground md:text-5xl" style={{ fontFamily: "Cinzel, serif" }}>
-            Watch Free Today
+            Start Watching Today
           </h3>
           <p className="mx-auto mb-8 max-w-xl text-primary-foreground/90 md:text-lg">
-            Download Alright TV and start streaming Dil Se Deewangi Tak — new episode every day at 12 PM.
+            Watch the promo now, then download Alright TV to stream Dil Se Deewangi Tak — new episode every day at 12 PM.
           </p>
-          <Button asChild size="xl" className="bg-background text-foreground hover:bg-background/90 font-bold uppercase tracking-wider">
-            <a href={PLAY_URL} target="_blank" rel="noopener">
-              <Play className="fill-current" /> Watch on Alright TV
-            </a>
-          </Button>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Button asChild size="xl" className="bg-background text-foreground hover:bg-background/90 font-bold uppercase tracking-wider">
+              <a href="#promo">
+                <Play className="fill-current" /> Watch Promo
+              </a>
+            </Button>
+            <Button asChild size="xl" variant="outline" className="border-background text-background hover:bg-background hover:text-foreground font-bold uppercase tracking-wider">
+              <a href={PLAY_URL} target="_blank" rel="noopener">Get the App</a>
+            </Button>
+          </div>
         </div>
       </div>
     </div>

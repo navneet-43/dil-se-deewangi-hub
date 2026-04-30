@@ -43,12 +43,12 @@ const Hero = () => {
         </a>
         <div className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
           <a href="#about" className="hover:text-primary transition-colors">About</a>
-          <a href="#watch" className="hover:text-primary transition-colors">Where to Watch</a>
+          <a href="#promo" className="hover:text-primary transition-colors">Promo</a>
           <a href="#story" className="hover:text-primary transition-colors">Story</a>
           <a href="#faq" className="hover:text-primary transition-colors">FAQ</a>
         </div>
         <Button asChild variant="hero" size="sm">
-          <a href={PLAY_URL} target="_blank" rel="noopener">Watch Free</a>
+          <a href="#promo">Watch Promo</a>
         </Button>
       </nav>
 
@@ -60,7 +60,7 @@ const Hero = () => {
             Now Streaming · Alright TV
           </div>
 
-          <h1 className="sr-only">Dil Se Deewangi Tak — Watch free on Alright TV</h1>
+          <h1 className="sr-only">Dil Se Deewangi Tak — Watch on Alright TV</h1>
 
           <p className="mb-2 text-lg font-semibold text-primary/90 md:text-xl">
             Naye season har dopahar 12 baje.
@@ -71,8 +71,8 @@ const Hero = () => {
 
           <div className="flex flex-wrap items-center gap-4">
             <Button asChild variant="hero" size="xl">
-              <a href={PLAY_URL} target="_blank" rel="noopener">
-                <Play className="fill-current" /> Watch Free Now
+              <a href="#promo">
+                <Play className="fill-current" /> Watch Promo
               </a>
             </Button>
             <Button asChild variant="outlineGold" size="xl">
@@ -86,7 +86,7 @@ const Hero = () => {
             <Stat label="Daily" value="12 PM" />
             <Stat label="Episode" value="22 min" />
             <Stat label="Format" value="Vertical" />
-            <Stat label="Price" value="Free" />
+            <Stat label="On" value="Alright TV" />
           </div>
         </div>
       </div>
